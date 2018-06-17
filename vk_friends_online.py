@@ -1,15 +1,24 @@
 import vk
+import getpass
+import argparse
 
 
 APP_ID = -1  # чтобы получить app_id, нужно зарегистрировать своё приложение на https://vk.com/dev
 
 
-def get_user_login():
-    pass
+def get_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        'login',
+        help='vk login',
+        type=str,
+    )
+    args = parser.parse_args()
+    return args
 
 
 def get_user_password():
-    pass
+    return getpass.getpass('Enter your password: ')
 
 
 def get_online_friends(login, password):
@@ -26,7 +35,7 @@ def output_friends_to_console(friends_online):
     pass
 
 if __name__ == '__main__':
-    login = get_user_login()
+    login = get_args().login
     password = get_user_password()
     friends_online = get_online_friends(login, password)
     output_friends_to_console(friends_online)
