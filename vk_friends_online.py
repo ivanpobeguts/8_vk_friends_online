@@ -2,8 +2,7 @@ import vk
 import getpass
 import argparse
 
-
-APP_ID = -1  # чтобы получить app_id, нужно зарегистрировать своё приложение на https://vk.com/dev
+APP_ID = 6607153
 
 
 def get_args():
@@ -21,7 +20,7 @@ def get_user_password():
     return getpass.getpass('Enter your password: ')
 
 
-def get_online_friends(login, password, api_version='5.78'):
+def get_online_friends(login, password, api_version=' 5.78'):
     try:
         session = vk.AuthSession(
             app_id=APP_ID,
@@ -37,10 +36,18 @@ def get_online_friends(login, password, api_version='5.78'):
 
 
 def output_friends_to_console(friends_online):
-    pass
+    for friend in friends_online:
+        print(friend['first_name'], friend['last_name'])
+
 
 if __name__ == '__main__':
     login = get_args().login
     password = get_user_password()
-    friends_online = get_online_friends(login, password)
-    output_friends_to_console(friends_online)
+    if login and password:
+        friends_online = get_online_friends(login, password)
+        if friends_online is not None:
+            output_friends_to_console(friends_online)
+        else:
+            print('Incorrect login or password')
+    else:
+        print('Please enter your password')
